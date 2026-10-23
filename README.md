@@ -78,7 +78,12 @@ The app reads the **Faculty Class Photo Roster** PDF from **MyPack Portal**.
 1. Sign in to **MyPack Portal** and open the Faculty page. It is titled **Advising**, with **Faculty Center**, **Advisor Center**, and **Search** tabs. Stay on **Faculty Center**.
 2. Under **My Schedule**, check the term at the top. Click **Change Term** if it isn't the current one.
 3. Under **My Teaching Schedule**, click the **Class Roster** icon (the small group of people) at the left of your class's row.
+
+   <img src="docs/screenshots/mypack-1-my-schedule.png" width="600" alt="MyPack Portal Faculty Center, My Schedule: the Class Roster icon next to a class is outlined in red">
+
 4. On the **Class Roster** page, leave **Enrollment Status** set to **Enrolled**, then click **Photo Roster**. The button is on the right, just above the *Enrolled Students* list.
+
+   <img src="docs/screenshots/mypack-2-class-roster.png" width="600" alt="MyPack Portal Class Roster page: the Photo Roster button is outlined in red">
 
    > Already on the Class Roster page for a different class? Use **Change Class** to switch.
 5. A PDF opens with every enrolled student's photo, student ID, and name. Its first page is headed *Faculty Class Photo Roster* and shows the class, term, and *Roster Count*. **Download or save this PDF.** It is the file you import into Roster Caller.
