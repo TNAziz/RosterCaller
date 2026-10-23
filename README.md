@@ -214,7 +214,7 @@ To run your own copy, fork this repository and turn on **Settings → Pages → 
 
 ## License
 
-Roster Caller is released into the **public domain** under [The Unlicense](LICENSE). You can use, copy, modify, share, and sell it for any purpose, without asking and without giving credit.
+Roster Caller is open source under the [MIT License](LICENSE). You can use, copy, modify, share, and even sell it for any purpose, without asking. The one condition is to keep the copyright and license notice with copies of the code.
 
 The bundled [pdf.js](https://mozilla.github.io/pdf.js/) library in `vendor/pdfjs/` is Mozilla's work and keeps its own [Apache License 2.0](vendor/pdfjs/LICENSE), which is also free to use and share.
 
