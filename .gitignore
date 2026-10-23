@@ -1,0 +1,5 @@
+# Never commit student data: rosters, exports, backups.
+*.pdf
+*.csv
+*.xlsx
+RosterCaller_backup_*.json
