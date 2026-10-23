@@ -16,14 +16,20 @@ You set it up by importing the class photo roster PDF from MyPack Portal. **Stud
 
 **Open the app:** <https://tnaziz.github.io/RosterCaller/> · **Printable guide:** [Roster_Caller_Guide.pdf](docs/Roster_Caller_Guide.pdf)
 
+## Why I built this
+
+I got tired of keeping track of the students I was calling on with a paper printout of my photo roster, so I decided to vibe code this app with [Claude](https://claude.ai). Now I pick students, mark answers, and take attendance on my phone, and the app keeps the records for me.
+
+**A note on compatibility:** Roster Caller is built specifically for the photo roster PDF that NC State's MyPack Portal exports. I'm not sure how well it works with rosters from other systems. It's open source and [free for anyone to use](#license), so feel free to adjust it to fit your needs.
+
 ---
 
 ## Contents
 
-- [What it does](#what-it-does) · [Privacy](#privacy)
+- [Why I built this](#why-i-built-this) · [What it does](#what-it-does) · [Privacy](#privacy)
 - **Getting started:** [1. Set up](#1-set-up-once-per-phone) · [2. Get your photo roster](#2-get-your-photo-roster-from-mypack-portal) · [3. Import it](#3-import-the-roster)
 - **Using it:** [4. Call on students](#4-call-on-students) · [5. Learn names](#5-learn-names) · [6. Attendance and roster](#6-attendance-and-the-roster) · [7. History and CSV export](#7-history-and-csv-export) · [8. Settings, backups, new semester](#8-settings-backups-and-a-new-semester)
-- **More:** [Troubleshooting](#troubleshooting) · [Sharing with colleagues](#sharing-with-colleagues) · [Maintaining the app](#maintaining-the-app)
+- **More:** [Troubleshooting](#troubleshooting) · [Sharing with colleagues](#sharing-with-colleagues) · [License](#license) · [Maintaining the app](#maintaining-the-app)
 
 ---
 
@@ -202,9 +208,15 @@ Tap the **gear** at the top right.
 
 Send them the link <https://tnaziz.github.io/RosterCaller/> and this guide. Each person's classes and records stay on their own phone, so nobody can see anyone else's data and no accounts are needed.
 
-The PDF import is designed for NC State's *Faculty Class Photo Roster*. Rosters from other systems may not import cleanly, but **Paste** and **Photos** work anywhere.
+The PDF import is built for NC State's *Faculty Class Photo Roster*, and I haven't tested rosters from other systems. **Paste** and **Photos** work with any class. If your school's roster PDF doesn't import, the code is open: `roster-pdf.js` is the part to adapt.
 
 To run your own copy, fork this repository and turn on **Settings → Pages → Deploy from a branch → `main` / (root)**.
+
+## License
+
+Roster Caller is released into the **public domain** under [The Unlicense](LICENSE). You can use, copy, modify, share, and sell it for any purpose, without asking and without giving credit.
+
+The bundled [pdf.js](https://mozilla.github.io/pdf.js/) library in `vendor/pdfjs/` is Mozilla's work and keeps its own [Apache License 2.0](vendor/pdfjs/LICENSE), which is also free to use and share.
 
 ## Maintaining the app
 
@@ -214,7 +226,7 @@ Plain HTML, CSS, and JavaScript with no build step.
 |---|---|
 | `index.html` | The whole app: UI, storage (IndexedDB), and logic |
 | `roster-pdf.js` | Reads the roster PDF: pairs each photo with the ID and name printed under it |
-| `vendor/pdfjs/` | pdf.js 4.10.38 (legacy build), © Mozilla, Apache License 2.0 |
+| `vendor/pdfjs/` | pdf.js 4.10.38 (legacy build), © Mozilla, Apache License 2.0 (see [License](#license)) |
 | `sw.js` | Offline cache. **Bump `VERSION` whenever any file changes**, so installed copies update |
 | `samples/` | The fictional sample roster (`Sample_Roster.pdf`) and its source |
 | `docs/` | README screenshots, the printable guide (`Roster_Caller_Guide.pdf`), and the scripts that make them |
