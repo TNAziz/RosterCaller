@@ -73,12 +73,16 @@ You need an iPhone or iPad with iOS 16.4 or later.
 
 ## 2. Get your photo roster from MyPack Portal
 
-The app reads the **Faculty Class Photo Roster** PDF that you download from the **Faculty** page in **MyPack Portal**.
+The app reads the **Faculty Class Photo Roster** PDF from **MyPack Portal**.
 
-1. Sign in to **MyPack Portal** and open the **Faculty** page.
-2. Choose the term and class, and open the class's **photo roster**.
-3. Download or save it as a **PDF**. The first page is headed *Faculty Class Photo Roster* and shows the class, term, and *Roster Count*.
-4. Put the PDF on your iPhone in **Files**. Either:
+1. Sign in to **MyPack Portal** and open the Faculty page. It is titled **Advising**, with **Faculty Center**, **Advisor Center**, and **Search** tabs. Stay on **Faculty Center**.
+2. Under **My Schedule**, check the term at the top. Click **Change Term** if it isn't the current one.
+3. Under **My Teaching Schedule**, click the **Class Roster** icon (the small group of people) at the left of your class's row.
+4. On the **Class Roster** page, leave **Enrollment Status** set to **Enrolled**, then click **Photo Roster**. The button is on the right, just above the *Enrolled Students* list.
+
+   > Already on the Class Roster page for a different class? Use **Change Class** to switch.
+5. A PDF opens with every enrolled student's photo, student ID, and name. Its first page is headed *Faculty Class Photo Roster* and shows the class, term, and *Roster Count*. **Download or save this PDF.** It is the file you import into Roster Caller.
+6. Put the PDF on your iPhone in **Files**. Either:
    - download it on the iPhone itself (in Safari, tap **Share → Save to Files**), or
    - download it on your computer and **AirDrop** it to the iPhone, then choose **Save to Files**.
 
