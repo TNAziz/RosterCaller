@@ -14,31 +14,22 @@ You set it up by importing the class photo roster PDF from MyPack Portal. **Stud
 
 <sub>All screenshots use a fictional sample class with cartoon avatars. No real students are shown.</sub>
 
-**Open the app:** <https://tnaziz.github.io/RosterCaller/>
+**Open the app:** <https://tnaziz.github.io/RosterCaller/> · **Printable guide:** [Roster_Caller_Guide.pdf](docs/Roster_Caller_Guide.pdf)
 
 ---
 
 ## Contents
 
-1. [What it does](#what-it-does)
-2. [Privacy](#privacy)
-3. [Set up (once per phone)](#1-set-up-once-per-phone)
-4. [Get your photo roster from MyPack Portal](#2-get-your-photo-roster-from-mypack-portal)
-5. [Import the roster](#3-import-the-roster)
-6. [Call on students](#4-call-on-students)
-7. [Learn names](#5-learn-names)
-8. [Attendance and the roster](#6-attendance-and-the-roster)
-9. [History and CSV export](#7-history-and-csv-export)
-10. [Settings, backups and a new semester](#8-settings-backups-and-a-new-semester)
-11. [Troubleshooting](#troubleshooting)
-12. [Sharing with colleagues](#sharing-with-colleagues)
-13. [Maintaining the app](#maintaining-the-app)
+- [What it does](#what-it-does) · [Privacy](#privacy)
+- **Getting started:** [1. Set up](#1-set-up-once-per-phone) · [2. Get your photo roster](#2-get-your-photo-roster-from-mypack-portal) · [3. Import it](#3-import-the-roster)
+- **Using it:** [4. Call on students](#4-call-on-students) · [5. Learn names](#5-learn-names) · [6. Attendance and roster](#6-attendance-and-the-roster) · [7. History and CSV export](#7-history-and-csv-export) · [8. Settings, backups, new semester](#8-settings-backups-and-a-new-semester)
+- **More:** [Troubleshooting](#troubleshooting) · [Sharing with colleagues](#sharing-with-colleagues) · [Maintaining the app](#maintaining-the-app)
 
 ---
 
 ## What it does
 
-| | |
+| Feature | What it means |
 |---|---|
 | **Random, fair calling** | Picks a present student at random, favoring those called least. Calls are balanced across the whole semester, not per day. |
 | **One-tap records** | Mark each call **Answered**, **No answer**, or **Absent**. Every mark is saved with the date and time. |
@@ -81,17 +72,17 @@ The app reads the **Faculty Class Photo Roster** PDF from **MyPack Portal**.
 
    <img src="docs/screenshots/mypack-1-my-schedule.png" width="600" alt="MyPack Portal Faculty Center, My Schedule: the Class Roster icon next to a class is outlined in red">
 
-4. On the **Class Roster** page, leave **Enrollment Status** set to **Enrolled**, then click **Photo Roster**. The button is on the right, just above the *Enrolled Students* list.
+4. On the **Class Roster** page, leave **Enrollment Status** set to **Enrolled**, then click **Photo Roster**. The button is on the right, just above the *Enrolled Students* list. (To switch to a different class from this page, use **Change Class**.)
 
    <img src="docs/screenshots/mypack-2-class-roster.png" width="600" alt="MyPack Portal Class Roster page: the Photo Roster button is outlined in red">
 
-   > Already on the Class Roster page for a different class? Use **Change Class** to switch.
 5. A PDF opens with every enrolled student's photo, student ID, and name. Its first page is headed *Faculty Class Photo Roster* and shows the class, term, and *Roster Count*. **Download or save this PDF.** It is the file you import into Roster Caller.
 6. Put the PDF on your iPhone in **Files**. Either:
-   - download it on the iPhone itself (in Safari, tap **Share → Save to Files**), or
-   - download it on your computer and **AirDrop** it to the iPhone, then choose **Save to Files**.
 
-   Saving it under **On My iPhone** rather than **iCloud Drive** keeps it off the cloud.
+    - download it on the iPhone itself (in Safari, tap **Share → Save to Files**), or
+    - download it on your computer and **AirDrop** it to the iPhone, then choose **Save to Files**.
+
+    Saving it under **On My iPhone** rather than **iCloud Drive** keeps it off the cloud.
 
 > Use the PDF exactly as downloaded. A scan, a photo, or a screenshot of the roster will not import.
 
@@ -209,7 +200,7 @@ Tap the **gear** at the top right.
 
 ## Sharing with colleagues
 
-Send them the link <https://tnaziz.github.io/RosterCaller/> and this page. Each person's classes and records stay on their own phone, so nobody can see anyone else's data and no accounts are needed.
+Send them the link <https://tnaziz.github.io/RosterCaller/> and this guide. Each person's classes and records stay on their own phone, so nobody can see anyone else's data and no accounts are needed.
 
 The PDF import is designed for NC State's *Faculty Class Photo Roster*. Rosters from other systems may not import cleanly, but **Paste** and **Photos** work anywhere.
 
@@ -226,15 +217,21 @@ Plain HTML, CSS, and JavaScript with no build step.
 | `vendor/pdfjs/` | pdf.js 4.10.38 (legacy build), © Mozilla, Apache License 2.0 |
 | `sw.js` | Offline cache. **Bump `VERSION` whenever any file changes**, so installed copies update |
 | `samples/` | The fictional sample roster (`Sample_Roster.pdf`) and its source |
-| `docs/` | README screenshots and the scripts that make them |
+| `docs/` | README screenshots, the printable guide (`Roster_Caller_Guide.pdf`), and the scripts that make them |
 
-`.gitignore` blocks PDFs, CSVs, and backup files, apart from the sample roster, so real student data can't be committed by accident.
+`.gitignore` blocks PDFs, CSVs, and backup files, apart from the sample roster and the guide, so real student data can't be committed by accident.
 
 **Regenerate the sample roster** (needs Python with Pillow, and Chrome):
 
 ```bash
 python docs/tools/make_sample_roster.py
 chrome --headless=new --no-pdf-header-footer --print-to-pdf=samples/Sample_Roster.pdf samples/sample_roster.html
+```
+
+**Rebuild the printable guide** from this README after editing it (needs Python with `markdown`, and Chrome):
+
+```bash
+python docs/tools/make_guide_pdf.py
 ```
 
 **Retake the screenshots** (needs Node 20+ and Chrome). Run each in its own terminal from the repository folder:

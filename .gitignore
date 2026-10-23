@@ -6,3 +6,4 @@ RosterCaller_backup_*.json
 
 # ...except the fictional sample roster.
 !samples/Sample_Roster.pdf
+!docs/Roster_Caller_Guide.pdf
