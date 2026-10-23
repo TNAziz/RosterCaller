@@ -1,5 +1,5 @@
 // Offline cache for the app shell. Bump VERSION when any file changes.
-const VERSION = 'rc-v3';
+const VERSION = 'rc-v4';
 const FILES = ['./', 'index.html', 'roster-pdf.js', 'manifest.webmanifest',
   'vendor/pdfjs/pdf.min.mjs', 'vendor/pdfjs/pdf.worker.min.mjs',
   'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];

@@ -3,3 +3,6 @@
 *.csv
 *.xlsx
 RosterCaller_backup_*.json
+
+# ...except the fictional sample roster.
+!samples/Sample_Roster.pdf
