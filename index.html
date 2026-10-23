@@ -358,10 +358,12 @@ const classStudents = () => state.students.filter(s => s.classId === state.class
 const classEvents = () => state.events.filter(e => e.classId === state.classId);
 const isAbsent = (sid, date = today()) => state.events.some(e => e.studentId === sid && e.date === date && e.type === 'absent');
 const isCall = e => e.type === 'answered' || e.type === 'no_answer';
-const callsToday = sid => state.events.filter(e => e.studentId === sid && e.date === today() && isCall(e)).length;
-const callsTotal = sid => state.events.filter(e => e.studentId === sid && isCall(e)).length;
-function studentStats(sid) {
-  const ev = state.events.filter(e => e.studentId === sid);
+// Call balancing counts calls since the class's last "Reset call balance" (or ever, if never reset).
+// History and exports always keep every record.
+const balanceSince = () => (state.classes.find(c => c.id === state.classId) || {}).balanceSince || 0;
+const callsTotal = sid => { const t = balanceSince(); return state.events.filter(e => e.studentId === sid && isCall(e) && e.ts >= t).length; };
+function studentStats(sid, since = 0) {
+  const ev = state.events.filter(e => e.studentId === sid && e.ts >= since);
   const answered = ev.filter(e => e.type === 'answered').length;
   const noAnswer = ev.filter(e => e.type === 'no_answer').length;
   const absent = ev.filter(e => e.type === 'absent').length;
@@ -467,7 +469,8 @@ function renderCall(landed = false) {
   const absent = roster.filter(s => isAbsent(s.id)).length;
   const present = roster.length - absent;
   const never = roster.filter(s => !isAbsent(s.id) && callsTotal(s.id) === 0).length;
-  const calledToday = classEvents().filter(e => e.date === today() && isCall(e)).length;
+  const since = balanceSince();
+  const calls = classEvents().filter(e => isCall(e) && e.ts >= since).length;
   const cur = state.current;
   let tip = '';
   if (!isStandalone() && !loadPref('tipDismissed') && /iPhone|iPad/.test(navigator.userAgent)) {
@@ -479,7 +482,7 @@ function renderCall(landed = false) {
     <div class="status">
       <span class="chip"><b>${present}</b> present${absent ? ` · ${absent} absent` : ''}</span>
       <span class="chip"><b>${never}</b> not yet called</span>
-      <span class="chip"><b>${calledToday}</b> today</span>
+      <span class="chip"><b>${calls}</b> ${calls === 1 ? 'call' : 'calls'}${since ? ` since ${shortDate(since)}` : ''}</span>
     </div>
     <div class="card stage ${landed ? 'landed' : ''}" id="stage">
       ${cur ? `<div class="portrait">${photoHTML(cur)}</div>
@@ -503,11 +506,12 @@ function renderCall(landed = false) {
     </div>`;
 }
 function subLine(s) {
-  const st = studentStats(s.id);
+  const st = studentStats(s.id, balanceSince());
   return st.called ? `Called ${st.called}× before · ${st.answered} answered` : 'First time being called';
 }
+const shortDate = ts => new Date(ts).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 
-// Students called least (across all class days) come first when "fair" is on.
+// Students called least (since the last balance reset) come first when "fair" is on.
 function choose() {
   const pool = classStudents().filter(s => !isAbsent(s.id));
   if (!pool.length) return null;
@@ -1143,7 +1147,7 @@ const str = (v, n = 200) => typeof v === 'string' ? v.slice(0, n) : '';
 function cleanBackup(d) {
   if (!d || d.app !== 'RosterCaller' || !Array.isArray(d.classes) || !Array.isArray(d.students)) return null;
   const classes = d.classes.filter(c => c && ID_OK(c.id) && typeof c.name === 'string')
-    .map(c => ({ id: c.id, name: str(c.name) || 'Class', term: str(c.term), created: +c.created || Date.now() }));
+    .map(c => ({ id: c.id, name: str(c.name) || 'Class', term: str(c.term), created: +c.created || Date.now(), balanceSince: +c.balanceSince || 0 }));
   const students = d.students.filter(s => s && ID_OK(s.id) && ID_OK(s.classId) && typeof s.name === 'string' && PHOTO_OK(s.photo))
     .map(s => {
       const o = { id: s.id, classId: s.classId, name: str(s.name) || '?', pronouns: str(s.pronouns, 40), sid: str(s.sid, 20), ferpa: !!s.ferpa, photo: s.photo || null, created: +s.created || Date.now() };
@@ -1192,6 +1196,7 @@ function settingsDialog() {
     <div class="sub-head">Class</div>
     <div class="menu-list">
       <button onclick="importRosterPdf()">Import roster PDF<small>Add or update students from a class photo roster</small></button>
+      ${c ? `<button onclick="resetBalance()">Reset call balance<small>${c.balanceSince ? `Balancing calls since ${shortDate(c.balanceSince)}` : 'Balancing calls since the class began'}. Resetting starts everyone even; history and exports are kept.</small></button>` : ''}
       ${c ? `<button onclick="renameClassDialog()">Rename “${esc(c.name)}”</button>` : ''}
       <button onclick="newClassDialog()">New class</button>
       ${c ? `<button class="danger" onclick="deleteClass()">Delete this class</button>` : ''}
@@ -1205,6 +1210,15 @@ function settingsDialog() {
     <div class="btns"><button class="btn" onclick="closeDialog()">Done</button></div>`);
 }
 $('#settingsBtn').addEventListener('click', settingsDialog);
+async function resetBalance() {
+  const c = state.classes.find(x => x.id === state.classId);
+  if (!confirm(`Reset call balance for “${c.name}”? Everyone starts even, so the next picks come from the whole class. Call history and CSV exports are not changed.`)) return;
+  c.balanceSince = Date.now();
+  await put('classes', c);
+  state.current = null; state.marked = false;
+  closeDialog(); render();
+  toast('Call balance reset');
+}
 function renameClassDialog() {
   const c = state.classes.find(x => x.id === state.classId);
   openDialog(`<h3>Rename class</h3>

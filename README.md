@@ -17,7 +17,7 @@ All rosters, photos, and records are stored **only on the phone** (IndexedDB). N
 
 ## Use
 
-- **Call**: tap **Pick a student**. Faces slide past and stop on a student; tap the result. With *Call least-called first* on (Settings), students who have never been called, or have been called the fewest times this term, are picked first. Absent students are never picked.
+- **Call**: tap **Pick a student**. Faces slide past and stop on a student; tap the result. With *Call least-called first* on (Settings), students who have been called the fewest times (since you last tapped *Reset call balance*, or ever) are picked first. The count never resets on its own; reset it in Settings, e.g. at the start of a new semester. History and exports keep every record either way. Absent students are never picked.
 - **Learn**: practice names with flashcards (tap to reveal, then *Knew it* / *Missed it*) or multiple choice. Names you miss come back sooner. Practice never affects call records.
 - **Roster**: search, set today's attendance (Present/Absent), and edit names, pronouns, photos, and IDs.
 - **History**: browse by date, delete mistaken marks, and **Export CSV**: call log, per-student summary, or attendance by date. Exports include student IDs so they line up with your gradebook.
